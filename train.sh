@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ENV_NAME="Pong-v0"
+ENV_NAME="FlappyBird-v0"
 LOG_DIR="./models/$ENV_NAME"
 TMUX_SESSION_NAME="a3c"
 NUM_THREADS=$(nproc --all)
@@ -30,7 +30,7 @@ tmux new-window -t $TMUX_SESSION_NAME -n htop
 sleep 1
 
 # Start the master thread, which synchronizes worker threads.
-tmux send-keys -t $TMUX_SESSION_NAME:master "/usr/bin/python3 thread.py" \
+tmux send-keys -t $TMUX_SESSION_NAME:master "python thread.py" \
                                             " --env_name=$ENV_NAME" \
                                             " --log_dir=$LOG_DIR" \
                                             " --num_threads=$NUM_THREADS" \
@@ -39,7 +39,7 @@ tmux send-keys -t $TMUX_SESSION_NAME:master "/usr/bin/python3 thread.py" \
 # Start worker threads.
 for thread_id in $(seq 0 $(($NUM_THREADS - 1))); do
     tmux send-keys -t $TMUX_SESSION_NAME:thread-$thread_id \
-        "/usr/bin/python3 thread.py" \
+        "python thread.py" \
         " --env_name=$ENV_NAME" \
         " --log_dir=$LOG_DIR" \
         " --num_threads=$NUM_THREADS" \

@@ -22,7 +22,7 @@ PARSER = argparse.ArgumentParser(description='Train an agent to play Atari games
 PARSER.add_argument('--env_name',
                     metavar='ENVIRONMENT',
                     help='name of an OpenAI Gym Atari environment on which to train',
-                    default='Pong-v0')
+                    default='FlappyBird-v0')
 
 PARSER.add_argument('--worker_index',
                     help='the index of this worker thread (if it is the master, leave it None)',
@@ -60,7 +60,7 @@ PARSER.add_argument('--num_global_steps',
                     metavar='TIME STEPS',
                     help='number of time steps trained for in total',
                     type=int,
-                    default=50000000)
+                    default=50000)
 
 PARSER.add_argument('--learning_rate',
                     metavar='LAMBDA',

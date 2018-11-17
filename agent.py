@@ -214,4 +214,6 @@ class Agent():
 
         self.num_times_trained += 1
 
+        #print(self.num_times_trained)
+        #print('global step=', global_step)
         return global_step

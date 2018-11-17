@@ -6,6 +6,7 @@ Heavily influenced by DeepMind's seminal paper 'Playing Atari with Deep Reinforc
 """
 
 import gym
+import gym_ple
 import numpy as np
 import time
 
@@ -98,8 +99,10 @@ class AtariWrapper:
                                                                                  self.action_space))
 
         observation, reward, self.done, info = self.env.step(action)
+        if reward==-5:
+            reward=-1
 
-        if self.mode is TRAINING and self.lives is not None and info['ale.lives'] < self.lives:
+        if self.mode is TRAINING and self.lives is not None and 1 < self.lives:
             # While training, treat loss of life as end of episode.
             self.done = True
 
@@ -107,7 +110,8 @@ class AtariWrapper:
         self.episode_length += 1
         self.state = _preprocess_observation(observation)
         self.episode_run_time = time.time() - self.episode_start_time
-        self.lives = info['ale.lives']
+        #self.lives = info['ale.lives']
+        self.lives = 1   #changed for flappy-bird, was causing error
 
         return -1 if reward < 0 else 1 if reward > 0 else 0
 
